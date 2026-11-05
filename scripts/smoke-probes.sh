@@ -7,10 +7,11 @@
 #       要断言多个工具时改成写 mcp_check；调用前要备数据时写 before_mcp。
 # 装之前要准备（如先配出口代理）：写 before_install。
 
-web_assert() { grep -q '你好'; }   # 示例页的标题
+# code-server：应用自己的认证已关（--auth none），没有用户体系，入口只靠核心网关挡（匿名请求到不了插件，
+# 由冒烟的“网关没拒绝匿名请求”断言验证）；清单没有 mcp。
+SSO=none
+MCP=0
+IDENTITY_NA=1
+SMOKE_NOTE="应用自己的认证已关（--auth none），没有用户体系；身份项不适用，网关把关由匿名请求断言验证"
 
-identity_check() { # 页面回显的就是网关注入的用户名
-  local page
-  page="$(dweb /)" || { echo "页面失败：$page"; return 1; }
-  grep -qF "你好，$SMOKE_OWNER" <<<"$page" || { echo "页面没回显用户 $SMOKE_OWNER：$(head -c 120 <<<"$page")"; return 1; }
-}
+web_assert() { grep -qi 'code-server'; }   # 工作台页面的 HTML 自带 code-server 字样

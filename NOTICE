@@ -1,14 +1,16 @@
-图标
-====
+code-server 标志
+================
 
-`icon.svg` 为本仓库原创，按插件规范的线条风格手写，未用图片模型生成。从模板新建的插件换成自己的图标时，这里按实际情况重写。
+图标：code-server
+来源：https://github.com/coder/code-server/blob/e609bb06e33ab50764959d34a406b069337275dc/src/browser/media/pwa-icon-512.png
+版权：Copyright (c) 2019 Coder Technologies Inc.
+处理：官方 512×512 应用图标原样合成在 #111111 纯色底上（官方图标是白色圆角方、深色标志，四角透明）；标志本身没有重绘、改色、拉伸、裁切或重新编码，也没有添加文字或阴影。
 
-许可证
-------
+上游许可证全文
 
 MIT License
 
-Copyright (c) 2026 Wonton plugin authors
+Copyright (c) 2019 Coder Technologies Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -27,3 +29,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
+商标
+
+code-server 名称和标志归 Coder Technologies Inc. 及其权利人所有。这里只用它们标识本插件集成的应用，不表示与上游存在官方合作、隶属关系或获得其背书。软件许可证不授予商标权。
