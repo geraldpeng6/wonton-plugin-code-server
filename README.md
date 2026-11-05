@@ -1,11 +1,20 @@
-# 云吞插件模板
+# 云吞插件：code-server
 
 云吞（Wonton）的插件就是一个 `docker-compose.yml`，顶层多一个 `x-wonton` 字段，写明插件在云吞里的身份、网页入口和要的
 权限。一个插件一个 Git 仓库，仓库根目录就是插件包，发布就是打 tag。用户在 App 里装上插件，核心按清单起容器、接好登录，
 插件的网页在 App 里作为小程序打开。
 
-这个仓库是模板：一个能装上的示例插件（nginx 显示一个向用户问好的网页），加上检查、开发环境和发布三个脚本。从这个模板
-新建仓库，照着下面把示例换成你的应用。
+code-server（[coder.com](https://coder.com)，MIT）是网页版 VS Code。这个插件把它装进云吞：应用自己的登录已关
+（`--auth none`），网页只由核心网关挡着；工作目录、扩展和设置都在插件数据目录里，重建后还在；共享文件夹 `documents`
+以读写挂载，工作区里有指向它的软链接。
+
+## 图标来源与许可
+
+`icon.png` 取自 code-server 4.145.0 的官方应用图标（src/browser/media/pwa-icon-512.png），合成在 `#111111`
+纯色底上，未用图片模型生成；来源、版权、处理方式、上游 MIT 全文和商标说明见 [NOTICE](NOTICE)。
+
+该标志为 Coder Technologies Inc. 及其权利人的商标，仅用于识别本插件所集成的应用；本插件不代表 code-server
+或 Coder 官方，也不表示获得其合作、认可或背书。
 
 ## 准备
 
@@ -31,16 +40,15 @@ scripts/dev.sh install
 `http://template3f2a.wonton.localhost:21234/`。浏览器打开，用 `scripts/dev.sh token` 输出的用户令牌登录。`install` 先列出
 插件要的权限，确认后装上，打印插件网页的地址。
 
-示例网页经 `sso: proxy` 拿到用户名，打开就是“你好，<用户名>”。换成真实应用时，把示例的 `description`、`about`、`tags`
-换成你的，`web/`、compose 里的两个 `configs` 和 `sso: proxy` 及其 `proxy` 删掉（默认让应用自己登录），`webui.service`、
-`port` 换成你的，按下面的规则重写。Chrome、Firefox 和 curl 把 `*.localhost` 直接解析到本机，不用改 hosts。
+打开插件网页就是 VS Code 工作台：应用自己的登录已关，入口只过核心网关的登录。Chrome、Firefox 和 curl 把
+`*.localhost` 直接解析到本机，不用改 hosts。
 
 ## 仓库里有什么
 
 | 路径 | 内容 |
 | --- | --- |
 | `docker-compose.yml` | 插件本身：compose 加上 `x-wonton` 清单 |
-| `icon.svg`、`web/` | 清单和 compose 引用的文件：图标、交给容器的配置和网页 |
+| `icon.png`、`init/` | 清单和 compose 引用的文件：图标、交给容器的初始化脚本 |
 | `screenshots/` | 商店详情页里的截图 |
 | `scripts/check.sh` | 检查插件包，规则和安装时一样 |
 | `scripts/dev.sh` | 开发环境：起一套云吞，装、重装、卸载插件，看日志 |
