@@ -7,11 +7,13 @@
 #       要断言多个工具时改成写 mcp_check；调用前要备数据时写 before_mcp。
 # 装之前要准备（如先配出口代理）：写 before_install。
 
+# shellcheck shell=bash
 # code-server：应用自己的认证已关（--auth none），没有用户体系，入口只靠核心网关挡（匿名请求到不了插件，
 # 由冒烟的“网关没拒绝匿名请求”断言验证）；清单没有 mcp。
-SSO=none
-MCP=0
+# 两个变量都由 scripts/smoke.sh source 后读取。
+# shellcheck disable=SC2034
 IDENTITY_NA=1
+# shellcheck disable=SC2034
 SMOKE_NOTE="应用自己的认证已关（--auth none），没有用户体系；身份项不适用，网关把关由匿名请求断言验证"
 
 web_assert() { grep -qi 'code-server'; }   # 工作台页面的 HTML 自带 code-server 字样
