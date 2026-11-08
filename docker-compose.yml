@@ -7,6 +7,11 @@ services:
   code-server:
     image: codercom/code-server:4.145.0@sha256:992796b850b8b7ec6f7393b8dd2295840a65cf5071981990ff41ef52dd566c43
     user: "${PUID}:${PGID}"
+    # 核心默认给所有插件容器加 no-new-privileges，而镜像入口第一行用 setuid 的 fixuid 把 /home/coder
+    # 的属主改给运行用户（见上游 /usr/bin/entrypoint.sh）；setuid 起不来时入口卡死，容器反复重启到
+    # unhealthy。按插件规范退回 Docker 默认，这一项不算权限。
+    security_opt:
+      - no-new-privileges:false
     environment:
       TZ: ${TZ}
       # 镜像的 entrypoint 会把 HOME 固定成镜像里 coder 的 /home/coder，任意 uid 下不可写：
@@ -44,7 +49,7 @@ configs:
     file: init/10-init.sh
 
 x-wonton:
-  spec: "0.4"
+  spec: "0.7"
   id: com.coder.code-server
   version: 0.1.0
   kind: app
