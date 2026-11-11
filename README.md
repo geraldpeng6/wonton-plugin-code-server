@@ -1,6 +1,6 @@
 # 云吞插件：code-server
 
-开发流程见[插件开发指南](https://github.com/geraldpeng6/wonton-docs/blob/main/develop.md)。
+开发流程见[插件开发指南](https://github.com/wontonapp/wonton-docs/blob/main/develop.md)。
 
 code-server（[coder.com](https://coder.com)，MIT）是网页版 VS Code。这个插件把它装进云吞：应用自己的登录已关
 （`--auth none`），网页只由核心网关挡着；工作目录、扩展和设置都在插件数据目录里，重建后还在；共享文件夹 `documents`
