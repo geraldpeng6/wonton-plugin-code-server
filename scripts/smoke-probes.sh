@@ -21,12 +21,11 @@ web_assert() { grep -qi 'code-server'; }   # 工作台页面的 HTML 自带 code
 # 数据：code-server 的用户数据就是 /data 卷本身（工作区、设置、扩展），应用没有写文件的 API；
 # 按身份探针的先例进容器，在工作区放一个标记文件、重装后读回——验证的正是"重建后还在"的
 # 数据卷映射契约（重装保留 ${WONTON_APP_DATA}，init 脚本幂等不清工作区）。
-cs_container() { printf 'wonton-%s--%s--code-server' "${SMOKE_INSTANCE:-${E2E_INSTANCE:?}}" "${SMOKE_SLUG:-${E2E_SLUG:?}}"; }
-cs_marker() { [[ -d "$SMOKE_STATE" ]] && printf '%s/data-marker' "$SMOKE_STATE" || printf '%s' "$SMOKE_STATE"; }
+cs_container() { printf 'wonton-%s--%s--code-server' "$SMOKE_INSTANCE" "$SMOKE_SLUG"; }
 
 data_write() {
   local marker value
-  marker="$(cs_marker)"
+  marker="$SMOKE_STATE"
   value="wonton-smoke-$(date +%s)-$RANDOM"
   docker exec "$(cs_container)" sh -c "printf '%s\n' '$value' > /data/workspace/wonton_smoke_marker.txt" ||
     { echo "写不进工作区" >&2; return 1; }
@@ -37,7 +36,7 @@ data_write() {
 
 data_check() {
   local marker written now
-  marker="$(cs_marker)"
+  marker="$SMOKE_STATE"
   written="$(cat "$marker" 2>/dev/null)" || { echo "读不到标记文件（data_write 没跑过？）" >&2; return 1; }
   now="$(docker exec "$(cs_container)" cat /data/workspace/wonton_smoke_marker.txt 2>/dev/null)" ||
     { echo "重装后工作区里没有标记文件" >&2; return 1; }
