@@ -53,10 +53,10 @@ x-wonton:
   id: com.coder.code-server
   version: 0.1.0
   kind: app
-  title: { en: code-server }
+  title: { zh: 网页版 VS Code（code-server）, en: VS Code in the Browser (code-server) }
   description:
-    zh: 在浏览器里用 VS Code 写代码，文件都留在自己家里
-    en: Use VS Code from the browser, your files stay at home
+    zh: 浏览器里的 VS Code：打开网页就能写代码、改文件、开终端，电脑上不用装任何软件，文件都在家里的服务器上。
+    en: "VS Code in your browser: write code, edit files and open a terminal from any computer with nothing to install; the files stay on your home server."
   icon: icon.png
   notices: [NOTICE]
   screenshots: [screenshots/home.png]
@@ -68,13 +68,13 @@ x-wonton:
     en: [Developer, Editor]
   about:
     zh: |
-      浏览器里的 VS Code：编辑器、内置终端、调试和扩展市场都在网页里，打开就能写代码。
+      浏览器里的 VS Code：写代码、开终端、装扩展都在网页里，打开就能用。
 
       工作目录、扩展和设置都放在插件数据目录，重装不丢。终端只在插件自己的容器里运行，看不到宿主机。
 
       工作区里的 documents 就是共享文件夹，可以读写；装扩展和语言包要出网。
     en: |
-      VS Code in the browser: editor, integrated terminal, debugging and the extension marketplace on a web page — open it and start coding.
+      VS Code in the browser: code, open a terminal and install extensions all in one web page — open it and start.
 
       The workspace, extensions and settings live in the plugin's data directory and survive reinstalls. The terminal runs inside the plugin's own container and never sees the host.
 
