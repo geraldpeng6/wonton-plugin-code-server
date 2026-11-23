@@ -5,7 +5,7 @@ name: code-server
 
 services:
   code-server:
-    image: codercom/code-server:4.145.2@sha256:09565f9e07f5624554e295e8bab0e2fec4a7c533eb3cff459ed6596a4d3d7c1c
+    image: codercom/code-server:4.145.2-39@sha256:f1598017dc620b44b27cd2517ba8be0de9e95a2275b97163eb3484364cde5785
     user: "${PUID}:${PGID}"
     # 核心默认给所有插件容器加 no-new-privileges，而镜像入口第一行用 setuid 的 fixuid 把 /home/coder
     # 的属主改给运行用户（见上游 /usr/bin/entrypoint.sh）；setuid 起不来时入口卡死，容器反复重启到
